@@ -1,4 +1,7 @@
 <script>
+    import store from "../store/ExpenseStore.js"
+
+
     let date;
     let paymentType;
     let category;
@@ -9,6 +12,19 @@
 
   const createExpense = () => {
     console.log("createExpense");
+    store.update(data => {
+        let id = data.length + 1;
+        let newExpense = {
+            id: id,
+            date: date,
+            paymentType: paymentType,
+            category: category,
+            amount: parseFloat(amount),
+            quantity: quantity,
+            subtotal: subtotal
+        };
+        return [...data, newExpense];
+    })
   };
 </script>
 
