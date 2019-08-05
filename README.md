@@ -3,7 +3,7 @@
 - Utilisation des différents types de store proposés par svelte
 - Création d'un service permettant d'interragir avec une base firebase
 - Utilisation des lifecycles hooks
-- Implémentationédir l' edit in place
+- Implémentation de l' edit in place
 - Animation propre au DOM
 - Utilisation de bootstrap
 
