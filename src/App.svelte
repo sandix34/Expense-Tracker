@@ -1,5 +1,6 @@
 <script>
-	export let name;
+import ExpenseTable from './components/ExpenseTable.svelte';
+	export let title;
 </script>
 
 <style>
@@ -8,4 +9,5 @@
 	}
 </style>
 
-<h1>Hello {name}!</h1>
+<h1>{title}</h1>
+<ExpenseTable/>
