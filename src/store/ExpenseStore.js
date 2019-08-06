@@ -25,7 +25,8 @@ const store = writable([
 
 export const totalTweenStore = tweened(0, {
     easing: cubicOut,
-    duration: 600
+    duration: 500,
+    delay: 800
 });
 
 export default store;
