@@ -1,4 +1,6 @@
 import { writable } from 'svelte/store';
+import { tweened } from 'svelte/motion';
+import { cubicOut } from 'svelte/easing';
 
 const store = writable([
     {
@@ -20,5 +22,10 @@ const store = writable([
         subtotal: 39
     }
 ]);
+
+export const totalTweenStore = tweened(0, {
+    easing: cubicOut,
+    duration: 600
+});
 
 export default store;
