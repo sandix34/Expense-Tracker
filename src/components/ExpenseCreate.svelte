@@ -1,31 +1,50 @@
 <script>
-    import store from "../store/ExpenseStore.js"
+  import store from "../store/ExpenseStore.js";
 
+  let date;
+  let paymentType;
+  let category;
+  let amount = "00.00";
+  let quantity;
 
-    let date;
-    let paymentType;
-    let category;
-    let amount ="00.00";
-    let quantity;
-
-    $: subtotal = amount * quantity;
+  $: subtotal = amount * quantity;
 
   const createExpense = () => {
     console.log("createExpense");
     store.update(data => {
-        let id = data.length + 1;
-        let newExpense = {
-            id: id,
-            date: date,
-            paymentType: paymentType,
-            category: category,
-            amount: parseFloat(amount),
-            quantity: quantity,
-            subtotal: subtotal
-        };
-        return [...data, newExpense];
-    })
+      let id = data.length + 1;
+      let newExpense = {
+        id: id,
+        date: date,
+        paymentType: paymentType,
+        category: category,
+        amount: parseFloat(amount),
+        quantity: quantity,
+        subtotal: subtotal
+      };
+      return [...data, newExpense];
+    });
+    initForm();
   };
+
+  function initForm() {
+    date = getCurrentDate();
+    paymentType = "cash";
+    category = "rent";
+    amount = "00.00";
+    quantity = 1;
+  }
+  function getCurrentDate() {
+    let today = new Date();
+    return (
+      today.getFullYear() +
+      "-" +
+      ("0" + (today.getMonth() + 1)).slice(-2) +
+      "-" +
+      ("0" + today.getDate()).slice(-2)
+    );
+  }
+  initForm();
 </script>
 
 <style>
@@ -42,7 +61,7 @@
       placeholder="dd/mm/yyyy"
       bind:value={date} />
   </div>
-   <div class="form-group">
+  <div class="form-group">
     <label for="paymentType">Payment type</label>
     <select class="form-control" id="paymentType" bind:value={paymentType}>
       <option value="cash">cash</option>
