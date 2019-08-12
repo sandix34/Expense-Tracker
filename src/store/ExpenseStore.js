@@ -22,7 +22,7 @@ expenseService.readExpense().then(querySnapshot => {
     ];
   });
   console.log('expensesFirestore', expensesFirestore);
-  
+  store.set(expensesFirestore);
 })
 .catch(err => console.error(err.message));
 
