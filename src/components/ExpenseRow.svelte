@@ -1,5 +1,8 @@
 <script>
 import { fade } from 'svelte/transition';
+import { createEventDispatcher } from "svelte";
+
+const dispatch = createEventDispatcher();
 
 export let expense;
 
@@ -18,16 +21,23 @@ const fadeOptions = {
       subtotal: 0,
   };
 
-  const toggleEdit = (exp) => {
-      isInEditMode = !isInEditMode;
-  };
+  function toggleEdit(exp) {
+    isInEditMode = !isInEditMode;
+    if (isInEditMode) {
+      itemEdit = { ...exp };
+    }
+  }
 
-  const handleInput = (event, fieldName) => {
-      itemEdit[fieldName] = event.target.value;
-  };
+  function handleInput(event, fieldName) {
+    itemEdit[fieldName] = event.target.value;
+    if (fieldName === "quantity" || fieldName === "amount") {
+      itemEdit["subtotal"] = itemEdit["quantity"] * itemEdit["amount"];
+    }
+  }
 
-  const save = () => {
-
+  function save() {
+    dispatch("expense-update", itemEdit);
+    isInEditMode = false;
   }
 
 
@@ -56,7 +66,10 @@ const fadeOptions = {
         <td>{expense.amount}</td>
         <td>{expense.quantity}</td>
         <td>{expense.subtotal}</td>
-        <td><span class="action" on:click={() => toggleEdit(expense)}>edit</span><span class="action">delete</span></td>
+        <td>
+            <span class="action" on:click={() => toggleEdit(expense)}>edit</span>
+            <span class="action">delete</span>
+        </td>
       </tr>
 {:else}
     <tr>
@@ -81,6 +94,9 @@ const fadeOptions = {
         <td>
             {expense.subtotal}
         </td>
-        <td><span class="action" on:click={save}>edit</span><span class="action" on:click={toggleEdit.bind(this)}>save</span></td>
+        <td>
+            <span class="action" on:click={save}>save</span>
+            <span class="action" on:click={toggleEdit.bind(this)}>cancel</span>
+      </td>
     </tr>
 {/if}

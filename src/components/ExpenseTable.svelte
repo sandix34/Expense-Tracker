@@ -1,9 +1,22 @@
 <script>
-  import ExpenseRow from './ExpenseRow.svelte'
+  import ExpenseRow from './ExpenseRow.svelte';
+  import store from '../store/ExpenseStore.js';
+  import expenseService from '../store/ExpenseService.js';
+
 
   export let expenses;
   console.log("expenses", expenses);
 
+  function updateExpense(event) {
+    const updatedExpense = event.detail;
+    expenseService.updateExpense(event.detail).then(() => {
+      store.update(data => {
+        const idx = data.findIndex(expense => expense.id === updatedExpense.id)
+        data[idx] = updatedExpense;
+        return [...data];
+      });      
+    });
+  }
   
 </script>
 
@@ -26,7 +39,7 @@
   </thead>
   <tbody>
     {#each expenses as exp}
-      <ExpenseRow expense={exp}/>
+      <ExpenseRow expense={exp} on:expense-update={updateExpense}/>
     {/each}
   </tbody>
 </table>

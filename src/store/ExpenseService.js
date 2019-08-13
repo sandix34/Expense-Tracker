@@ -9,7 +9,7 @@ const readExpense = () => {
 }
 
 const updateExpense= (expense) => {
-    return db.collection("expense".doc(expense.id)).update({...expense});
+    return db.collection("expenses").doc(expense.id).update({...expense});
 }
 
 const deleteExpense = (expense) => {
