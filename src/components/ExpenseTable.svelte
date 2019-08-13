@@ -1,12 +1,10 @@
 <script>
-  import { fade } from 'svelte/transition';
+  import ExpenseRow from './ExpenseRow.svelte'
 
   export let expenses;
   console.log("expenses", expenses);
 
-  const fadeOptions = {
-    duration: 700
-  }
+  
 </script>
 
 <style>
@@ -23,19 +21,12 @@
       <th scope="col">Amount</th>
       <th scope="col">Quantity</th>
       <th scope="col">Subtotal</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     {#each expenses as exp}
-      <tr transition:fade={fadeOptions}>
-        <th scope="row">{exp.id}</th>
-        <td>{exp.date}</td>
-        <td>{exp.paymentType}</td>
-        <td>{exp.category}</td>
-        <td>{exp.amount}</td>
-        <td>{exp.quantity}</td>
-        <td>{exp.subtotal}</td>
-      </tr>
+      <ExpenseRow expense={exp}/>
     {/each}
   </tbody>
 </table>
