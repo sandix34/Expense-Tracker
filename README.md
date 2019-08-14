@@ -7,6 +7,7 @@
 - Animation propre au DOM
 - Utilisation de bootstrap
 
+![ExpenseTracker](https://user-images.githubusercontent.com/44428775/63021969-1b174500-bea2-11e9-8ee9-f663aaaf5278.gif)
 
 
 ---
