@@ -13,7 +13,7 @@ const updateExpense= (expense) => {
 }
 
 const deleteExpense = (expense) => {
-
+    return db.collection("expenses").doc(expense.id).delete();
 }
 
 const expenseService = {
